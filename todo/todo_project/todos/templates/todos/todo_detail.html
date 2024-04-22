@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-back {
+            display: block;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ todo.title }}</h1>
+        <p>{{ todo.description }}</p>
+        <p class="status">Status: {% if todo.completed %}Completed{% else %}Pending{% endif %}</p>
+        <a class="btn btn-edit" href="{% url 'todo_update' todo.pk %}">Edit</a>
+        <br><br>
+        <form action="{% url 'todo_delete' todo.pk %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-delete" type="submit">Delete</button>
+        </form>
+        <a class="btn btn-back" href="{% url 'todo_list' %}">Back to Todo List</a>
+    </div>
+</body>
+</html>
